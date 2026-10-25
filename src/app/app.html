@@ -1,0 +1,204 @@
+
+<div class="page">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="brand-mark">P</div>
+      <div>
+        <p class="eyebrow">POKÉMON TRAINER DATABASE</p>
+        <h1>Gym Leader <span>Registry</span></h1>
+        <p class="subtitle">Your central database for the strongest trainers across the regions.</p>
+      </div>
+    </div>
+    <div class="hero-label">TRAINER ADMINISTRATION</div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="section-kicker">TRAINER DASHBOARD</p>
+        <h2>Welcome, Trainer!</h2>
+        <p>Manage Gym Leaders, their regions, badges, and specialties in one place.</p>
+      </div>
+      <div class="welcome-icon">✦</div>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card total">
+        <span class="stat-icon">◈</span>
+        <p>Total Gym Leaders</p>
+        <strong>{{ gymService.leaders().length }}</strong>
+        <small>Registered trainers</small>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">🔴</span>
+        <p>Kanto Region</p>
+        <strong>{{ gymService.kantoCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">🔵</span>
+        <p>Johto Region</p>
+        <strong>{{ gymService.johtoCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon">🟢</span>
+        <p>Hoenn Region</p>
+        <strong>{{ gymService.hoennCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+    </section>
+
+    @if (message()) {
+      <div class="alert success">{{ message() }}</div>
+    }
+    @if (errorMessage()) {
+      <div class="alert error">{{ errorMessage() }}</div>
+    }
+
+    <section class="panel form-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">{{ editingId ? 'UPDATE RECORD' : 'NEW RECORD' }}</p>
+          <h2>{{ editingId ? 'Edit Gym Leader' : 'Register a Gym Leader' }}</h2>
+          <p>Enter the trainer details below.</p>
+        </div>
+        <span class="panel-icon">＋</span>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="form-grid">
+          <label>
+            Leader Name <span>*</span>
+            <input type="text" formControlName="name" placeholder="e.g. Brock">
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <small class="field-error">Enter at least 2 characters.</small>
+            }
+          </label>
+
+          <label>
+            Region <span>*</span>
+            <select formControlName="region">
+              <option value="Kanto">Kanto</option>
+              <option value="Johto">Johto</option>
+              <option value="Hoenn">Hoenn</option>
+            </select>
+          </label>
+
+          <label>
+            Hometown / Town <span>*</span>
+            <input type="text" formControlName="town" placeholder="e.g. Pewter City">
+          </label>
+
+          <label>
+            Badge Name <span>*</span>
+            <input type="text" formControlName="badge" placeholder="e.g. Boulder Badge">
+          </label>
+
+          <label>
+            Pokémon Specialty <span>*</span>
+            <input type="text" formControlName="specialty" placeholder="e.g. Rock">
+          </label>
+
+          <label>
+            Ace Pokémon Level <span>*</span>
+            <input type="number" formControlName="aceLevel" min="1" max="100">
+            @if (form.controls.aceLevel.touched && form.controls.aceLevel.invalid) {
+              <small class="field-error">Level must be between 1 and 100.</small>
+            }
+          </label>
+
+          <label class="full-width">
+            Leader Motto
+            <textarea formControlName="motto" rows="2" maxlength="150" placeholder="A short quote or motto (optional)"></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          @if (editingId) {
+            <button class="btn secondary" type="button" (click)="cancelEdit()">Cancel Edit</button>
+          }
+          <button class="btn primary" type="submit" [disabled]="isSaving()">
+            {{ isSaving() ? 'Saving...' : editingId ? 'Save Changes' : '+ Add Gym Leader' }}
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel directory-panel">
+      <div class="directory-heading">
+        <div>
+          <p class="section-kicker">TRAINER DATABASE</p>
+          <h2>Gym Leader Directory</h2>
+          <p>Browse, search, and manage registered Gym Leaders.</p>
+        </div>
+        <span class="record-count">{{ filteredLeaders().length }} records</span>
+      </div>
+
+      <div class="filters">
+        <div class="search-box">
+          <span>⌕</span>
+          <input
+            type="search"
+            placeholder="Search name, town, badge, specialty..."
+            [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)">
+        </div>
+        <select
+          aria-label="Filter by region"
+          [value]="selectedRegion()"
+          (change)="selectedRegion.set($any($event.target).value)">
+          <option value="All">All Regions</option>
+          <option value="Kanto">Kanto</option>
+          <option value="Johto">Johto</option>
+          <option value="Hoenn">Hoenn</option>
+        </select>
+      </div>
+
+      @if (filteredLeaders().length > 0) {
+        <div class="leader-grid">
+          @for (leader of filteredLeaders(); track leader._id) {
+            <article class="leader-card">
+              <div class="card-top">
+                <span class="region-badge" [class.kanto]="leader.region === 'Kanto'" [class.johto]="leader.region === 'Johto'" [class.hoenn]="leader.region === 'Hoenn'">
+                  {{ leader.region }}
+                </span>
+                <span class="level">LV. {{ leader.aceLevel }}</span>
+              </div>
+              <div class="avatar">{{ leader.name.charAt(0).toUpperCase() }}</div>
+              <h3>{{ leader.name }}</h3>
+              <p class="town">⌖ {{ leader.town }}</p>
+              <div class="detail-row">
+                <span>BADGE</span>
+                <strong>{{ leader.badge }}</strong>
+              </div>
+              <div class="detail-row">
+                <span>SPECIALTY</span>
+                <strong>{{ leader.specialty }}</strong>
+              </div>
+              @if (leader.motto) {
+                <blockquote>“{{ leader.motto }}”</blockquote>
+              }
+              <div class="card-actions">
+                <button class="btn edit" type="button" (click)="editLeader(leader)">Edit</button>
+                <button class="btn delete" type="button" (click)="deleteLeader(leader)">Delete</button>
+              </div>
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <div class="empty-icon">◇</div>
+          <h3>No Gym Leaders Found</h3>
+          <p>
+            {{ gymService.leaders().length === 0
+              ? 'Your database is empty. Add your first Gym Leader using the form above.'
+              : 'No records match your search or selected region.' }}
+          </p>
+        </div>
+      }
+    </section>
+
+    <footer>GYM LEADER REGISTRY <span>•</span> TRAINER MANAGEMENT SYSTEM</footer>
+  </main>
+</div>
