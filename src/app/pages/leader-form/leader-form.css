@@ -203,3 +203,17 @@
     box-sizing: border-box;
   }
 }
+
+.register-title {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 2px solid #e9b949;
+  border-radius: 10px;
+  color: #f5c542;
+  background: #202b3c;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
