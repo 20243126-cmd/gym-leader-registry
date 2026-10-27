@@ -1,0 +1,146 @@
+
+:host {
+  display: block;
+}
+
+.home-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 28px 80px;
+  color: #f5f5f7;
+}
+
+.hero-content {
+  max-width: 760px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin-bottom: 20px;
+  color: #f5a623;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 1.12;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+h1 span {
+  display: block;
+  color: #f5a623;
+}
+
+.intro {
+  max-width: 580px;
+  margin: 24px auto 30px;
+  color: #b8becb;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.hero-actions a {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.hero-actions a:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.primary-button {
+  color: #171717;
+  background: #f5a623;
+}
+
+.secondary-button {
+  color: #f5f5f7;
+  border: 1px solid #424957;
+  background: #202530;
+}
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.region-card {
+  position: relative;
+  min-height: 185px;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid #343b49;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #252c39, #171b23);
+}
+
+.region-number {
+  color: #f5a623;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.region-card h2 {
+  margin: 26px 0 10px;
+  font-size: 26px;
+}
+
+.region-card p {
+  margin: 0;
+  color: #b8becb;
+  line-height: 1.6;
+}
+
+.kanto {
+  border-top: 3px solid #ef6464;
+}
+
+.johto {
+  border-top: 3px solid #6ca9ff;
+}
+
+.hoenn {
+  border-top: 3px solid #5cc99a;
+}
+
+@media (max-width: 700px) {
+  .home-page {
+    padding: 40px 18px;
+  }
+
+  .region-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions a {
+    text-align: center;
+  }
+}

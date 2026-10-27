@@ -1,0 +1,38 @@
+
+<article class="leader-card">
+  <div class="card-top">
+    <span
+      class="region-badge"
+      [class.kanto]="leader().region === 'Kanto'"
+      [class.johto]="leader().region === 'Johto'"
+      [class.hoenn]="leader().region === 'Hoenn'">
+      {{ leader().region }}
+    </span>
+
+    <span class="level">LV. {{ leader().aceLevel }}</span>
+  </div>
+
+  <div class="avatar">{{ leader().name.charAt(0).toUpperCase() }}</div>
+
+  <h3>{{ leader().name }}</h3>
+  <p class="town">{{ leader().town }}</p>
+
+  <div class="detail-row">
+    <span>BADGE</span>
+    <strong>{{ leader().badge }}</strong>
+  </div>
+
+  <div class="detail-row">
+    <span>SPECIALTY</span>
+    <strong>{{ leader().specialty }}</strong>
+  </div>
+
+  @if (leader().motto) {
+    <blockquote>{{ leader().motto }}</blockquote>
+  }
+
+  <div class="card-actions">
+    <button type="button" (click)="edit.emit(leader())">Edit</button>
+    <button type="button" (click)="remove.emit(leader())">Delete</button>
+  </div>
+</article>

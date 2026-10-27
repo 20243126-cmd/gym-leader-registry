@@ -1,0 +1,84 @@
+
+<section class="form-page">
+  <div class="form-heading">
+    <a class="back-link" routerLink="/leaders">← Back to Directory</a>
+    <p class="eyebrow">TRAINER DATABASE</p>
+    <h1>{{ pageTitle() }}</h1>
+    <p>Enter the Gym Leader details below.</p>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="alert error">{{ errorMessage() }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="form-grid">
+      <label>
+        Leader Name <span>*</span>
+        <input type="text" formControlName="name" placeholder="e.g. Brock">
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <small class="field-error">Enter at least 2 characters.</small>
+        }
+      </label>
+
+      <label>
+        Region <span>*</span>
+        <select formControlName="region">
+          <option value="Kanto">Kanto</option>
+          <option value="Johto">Johto</option>
+          <option value="Hoenn">Hoenn</option>
+        </select>
+      </label>
+
+      <label>
+        Hometown / Town <span>*</span>
+        <input type="text" formControlName="town" placeholder="e.g. Pewter City">
+        @if (form.controls.town.touched && form.controls.town.invalid) {
+          <small class="field-error">Town is required.</small>
+        }
+      </label>
+
+      <label>
+        Badge Name <span>*</span>
+        <input type="text" formControlName="badge" placeholder="e.g. Boulder Badge">
+        @if (form.controls.badge.touched && form.controls.badge.invalid) {
+          <small class="field-error">Badge is required.</small>
+        }
+      </label>
+
+      <label>
+        Pokémon Specialty <span>*</span>
+        <input type="text" formControlName="specialty" placeholder="e.g. Rock">
+        @if (form.controls.specialty.touched && form.controls.specialty.invalid) {
+          <small class="field-error">Specialty is required.</small>
+        }
+      </label>
+
+      <label>
+        Ace Pokémon Level <span>*</span>
+        <input type="number" formControlName="aceLevel" min="1" max="100">
+        @if (form.controls.aceLevel.touched && form.controls.aceLevel.invalid) {
+          <small class="field-error">Level must be between 1 and 100.</small>
+        }
+      </label>
+
+      <label class="full-width">
+        Leader Motto
+        <textarea
+          formControlName="motto"
+          rows="3"
+          maxlength="150"
+          placeholder="A short quote or motto (optional)">
+        </textarea>
+        <small>Maximum 150 characters.</small>
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <a class="secondary-button" routerLink="/leaders">Cancel</a>
+      <button type="submit" [disabled]="isSaving()">
+        {{ isSaving() ? 'Saving...' : isEditing() ? 'Save Changes' : '+ Add Gym Leader' }}
+      </button>
+    </div>
+  </form>
+</section>

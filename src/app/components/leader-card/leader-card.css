@@ -1,0 +1,172 @@
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.leader-card {
+  position: relative;
+  height: 100%;
+  padding: 24px;
+  overflow: hidden;
+  color: #f1f5f9;
+  background: linear-gradient(145deg, #222a38, #181e29);
+  border: 1px solid #343e50;
+  border-top: 3px solid #f5a623;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgb(0 0 0 / 15%);
+  transition: transform 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+  border-color: #59667b;
+  box-shadow: 0 14px 28px rgb(0 0 0 / 25%);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.region-badge,
+.level {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.region-badge.kanto {
+  color: #ffb4b4;
+  background: #542d38;
+}
+
+.region-badge.johto {
+  color: #a9caff;
+  background: #263d60;
+}
+
+.region-badge.hoenn {
+  color: #9ce9bd;
+  background: #244638;
+}
+
+.level {
+  color: #f5c76a;
+  background: #3a3020;
+  border: 1px solid #63502c;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-top: 25px;
+  border: 1px solid #6c5a38;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f5a623, #d97920);
+  color: #171b23;
+  font-size: 25px;
+  font-weight: 900;
+  box-shadow: 0 6px 15px rgb(0 0 0 / 18%);
+}
+
+.leader-card h3 {
+  margin: 17px 0 5px;
+  color: #ffffff;
+  font-size: 23px;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+
+.town {
+  margin: 0 0 22px;
+  color: #aab5c5;
+  font-size: 13px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-top: 1px solid #343e50;
+}
+
+.detail-row span {
+  flex-shrink: 0;
+  color: #8f9caf;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.detail-row strong {
+  color: #e5eaf2;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+blockquote {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid #f5a623;
+  border-radius: 0 8px 8px 0;
+  background: #292b30;
+  color: #c5ccd7;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.card-actions button {
+  flex: 1;
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px solid #465267;
+  border-radius: 9px;
+  color: #e9edf5;
+  background: #30394a;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card-actions button:hover {
+  transform: translateY(-1px);
+  background: #414d62;
+}
+
+.card-actions button:last-child {
+  color: #ffb0b0;
+  border-color: #68404a;
+  background: #3c2931;
+}
+
+.card-actions button:last-child:hover {
+  background: #57313a;
+}
+
+@media (max-width: 600px) {
+  .leader-card {
+    padding: 20px;
+  }
+}

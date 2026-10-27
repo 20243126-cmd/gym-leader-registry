@@ -1,0 +1,132 @@
+```html
+<div class="page">
+  <header class="hero">
+    <div class="hero-content">
+      <div class="brand-mark">✦</div>
+      <div>
+        <p class="eyebrow">POKÉMON WORLD DATABASE</p>
+        <h1>Gym Leader <span>Registry</span></h1>
+        <p class="subtitle">
+          Discover and manage the strongest trainers from Kanto, Johto, and Hoenn.
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-label">TRAINER DATABASE / 001</div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="section-kicker">TRAINER DASHBOARD</p>
+        <h2>Your Gym Leader Collection</h2>
+        <p>Keep track of every leader, badge, region, and specialty.</p>
+      </div>
+      <a class="btn primary" routerLink="/leaders/new">
+        <span>＋</span> Register Leader
+      </a>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card total">
+        <span class="stat-icon">✦</span>
+        <p>Total Leaders</p>
+        <strong>{{ gymService.totalLeaders() }}</strong>
+        <small>All registered trainers</small>
+      </article>
+
+      <article class="stat-card kanto-stat">
+        <span class="stat-icon">🔥</span>
+        <p>Kanto</p>
+        <strong>{{ gymService.kantoCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+
+      <article class="stat-card johto-stat">
+        <span class="stat-icon">💧</span>
+        <p>Johto</p>
+        <strong>{{ gymService.johtoCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+
+      <article class="stat-card hoenn-stat">
+        <span class="stat-icon">🌿</span>
+        <p>Hoenn</p>
+        <strong>{{ gymService.hoennCount() }}</strong>
+        <small>Gym Leaders</small>
+      </article>
+    </section>
+
+    @if (message()) {
+      <div class="alert success">{{ message() }}</div>
+    }
+
+    @if (errorMessage()) {
+      <div class="alert error">{{ errorMessage() }}</div>
+    }
+
+    <section class="panel directory-panel">
+      <div class="directory-heading">
+        <div>
+          <p class="section-kicker">THE COLLECTION</p>
+          <h2>Gym Leader Directory</h2>
+          <p>Search the registry or filter leaders by region.</p>
+        </div>
+        <span class="record-count">
+          {{ filteredLeaders().length }} RECORDS
+        </span>
+      </div>
+
+      <div class="filters">
+        <div class="search-box">
+          <span>⌕</span>
+          <input
+            type="search"
+            placeholder="Search name, town, badge, or specialty..."
+            [value]="searchTerm()"
+            (input)="searchTerm.set($any($event.target).value)">
+        </div>
+
+        <select
+          aria-label="Filter by region"
+          [value]="selectedRegion()"
+          (change)="selectedRegion.set($any($event.target).value)">
+          <option value="All">All Regions</option>
+          <option value="Kanto">Kanto</option>
+          <option value="Johto">Johto</option>
+          <option value="Hoenn">Hoenn</option>
+        </select>
+      </div>
+
+      <div class="leader-grid">
+        @for (leader of filteredLeaders(); track leader._id) {
+          <app-leader-card
+            [leader]="leader"
+            (edit)="editLeader($event)"
+            (remove)="deleteLeader($event)" />
+        } @empty {
+          <div class="empty-state">
+            <div class="empty-icon">◇</div>
+            <h3>No Gym Leaders Found</h3>
+            <p>
+              {{ gymService.totalLeaders() === 0
+                ? 'Your database is empty. Register your first Gym Leader to get started.'
+                : 'No records match your search or selected region. Try changing your filters.' }}
+            </p>
+
+            @if (gymService.totalLeaders() === 0) {
+              <a class="btn primary" routerLink="/leaders/new">
+                ＋ Register First Leader
+              </a>
+            }
+          </div>
+        }
+      </div>
+    </section>
+
+    <footer>
+      GYM LEADER REGISTRY <span>✦</span> TRAINER MANAGEMENT SYSTEM
+    </footer>
+  </main>
+</div>
+```

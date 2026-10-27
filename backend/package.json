@@ -1,22 +1,27 @@
+
 {
-  "name": "backend",
+  "name": "gym-leader-registry",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.8",
-    "express": "^5.3.0",
-    "mongoose": "^9.11.3"
+    "@angular/common": "^22.2.3",
+    "@angular/compiler": "^22.2.3",
+    "@angular/core": "^22.2.3",
+    "@angular/forms": "^22.2.3",
+    "@angular/platform-browser": "^22.2.3",
+    "@angular/router": "^22.2.3",
+    "rxjs": "^7.8.2",
+    "zone.js": "^0.16.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@angular/build": "^22.2.4",
+    "@angular/cli": "^22.1.8",
+    "@angular/compiler-cli": "^22.2.3",
+    "typescript": "~5.9.3"
   }
 }

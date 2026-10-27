@@ -1,5 +1,5 @@
 
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -38,7 +38,7 @@ export class GymLeaderService {
     () => this.leaders().filter(leader => leader.region === 'Hoenn').length
   );
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   loadLeaders(): void {
     this.http.get<GymLeader[]>(this.apiUrl).subscribe({
